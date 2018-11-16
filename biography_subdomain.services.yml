@@ -1,0 +1,5 @@
+services:
+  biography_subdomain.redirect_event_subscriber:
+    class: Drupal\biography_subdomain\BiographySubdomainRedirect
+    tags:
+      - { name: 'event_subscriber' }
