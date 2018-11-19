@@ -3,10 +3,8 @@
 namespace Drupal\biography_subdomain;
 
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\HttpKernel\Event;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\Core\Routing\TrustedRedirectResponse;
 
 /**
@@ -20,9 +18,9 @@ class BiographySubdomainRedirect implements EventSubscriberInterface {
    * @param Symfony\Component\HttpKernel\Event\GetResponseEvent $event
    *   The Event to process.
    */
-  public function checkRedirect(GetResponseEvent $event) {
+  public function checkRedirectBiographySubdomain(GetResponseEvent $event) {
     if ($event->getRequest()->getHost() !== 'biography.id') {
-        $event->setResponse(new TrustedRedirectResponse('http://biography.id/'));
+        $event->setResponse(new TrustedRedirectResponse('https://biography.id/'));
     }
   }
 
@@ -30,7 +28,7 @@ class BiographySubdomainRedirect implements EventSubscriberInterface {
    * {@inheritdoc}
    */
   static function getSubscribedEvents() {
-    $events[KernelEvents::REQUEST][] = array('checkRedirect', 20);
+    $events[KernelEvents::REQUEST][] = array('checkRedirectBiographySubdomain', 2000);
     return $events;
   }
 }
